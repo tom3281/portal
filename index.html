@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>NOMI — 飲みゲームポータル</title>
+<style>
+:root {
+  --bg-0: #08080a;
+  --bg-1: #16161a;
+  --bg-2: #2a2a30;
+  --steel-0: #4a4a52;
+  --steel-1: #8a8a92;
+  --steel-2: #c8c8d0;
+  --bone: #e8e4d8;
+  --dim: #6a6a72;
+  --gold: #f0c850;
+  --felt: #1d8554;
+  --blood: #e0142a;
+  --blood-glow: #ff2a3e;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: "SF Mono", "Menlo", "Consolas", "Courier New", monospace;
+  background: radial-gradient(ellipse at 50% 20%, #1a1a20 0%, #0a0a0c 60%, #000 100%);
+  color: var(--bone);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  letter-spacing: 0.06em;
+  position: relative;
+  min-height: 100dvh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg,
+      transparent 0, transparent 2px,
+      rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 3px);
+  z-index: 1;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%);
+  z-index: 1;
+}
+
+#app {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* ─── Header ─── */
+.head {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  color: var(--dim);
+}
+.brand::before, .brand::after {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--steel-0);
+}
+.title {
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  color: var(--bone);
+  text-shadow: 0 0 32px rgba(224,20,42,0.25);
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.tagline {
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--dim);
+}
+
+/* ─── Card list ─── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 22px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #1a1a20 0%, #0e0e12 100%);
+  border: 1px solid var(--steel-0);
+  color: var(--bone);
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent, var(--blood));
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+.card:active {
+  transform: scale(0.98);
+  border-color: var(--accent, var(--blood-glow));
+  box-shadow:
+    0 0 24px rgba(var(--accent-rgb, 224, 20, 42), 0.4),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.card:active::before { opacity: 0.18; }
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent, var(--blood-glow));
+    box-shadow:
+      0 8px 24px rgba(0,0,0,0.5),
+      0 0 24px rgba(var(--accent-rgb, 224, 20, 42), 0.3);
+  }
+  .card:hover::before { opacity: 0.08; }
+}
+
+/* card icon (left chip) */
+.chip {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent, var(--blood));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--bone);
+  position: relative;
+  box-shadow:
+    0 0 20px rgba(var(--accent-rgb, 224, 20, 42), 0.35),
+    inset 0 2px 4px rgba(255,255,255,0.25),
+    inset 0 -2px 4px rgba(0,0,0,0.3);
+  letter-spacing: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+}
+
+/* card body */
+.body {
+  flex: 1;
+  min-width: 0;
+}
+.name {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  margin-bottom: 4px;
+  color: var(--bone);
+}
+.name-jp {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--dim);
+  font-weight: 400;
+}
+.desc {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--steel-1);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* card arrow */
+.arrow {
+  flex-shrink: 0;
+  font-size: 16px;
+  color: var(--dim);
+  transition: all 0.2s;
+}
+.card:hover .arrow,
+.card:active .arrow {
+  color: var(--accent, var(--blood-glow));
+  transform: translateX(4px);
+}
+
+/* per-card accents */
+.card.chinchiro {
+  --accent: #f0c850;
+  --accent-rgb: 240, 200, 80;
+}
+.card.flip {
+  --accent: #1d8554;
+  --accent-rgb: 29, 133, 84;
+}
+.card.roulette {
+  --accent: #e0142a;
+  --accent-rgb: 224, 20, 42;
+}
+
+/* ─── Footer ─── */
+.foot {
+  margin-top: 36px;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: var(--dim);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.foot::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--steel-0);
+  margin: 0 auto 16px;
+}
+
+/* ─── Mount-in animation ─── */
+.card {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: mount 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+}
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.15s; }
+.card:nth-child(3) { animation-delay: 0.25s; }
+@keyframes mount {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.title, .tagline, .brand {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+.brand { animation-delay: 0s; }
+.title { animation-delay: 0.1s; }
+.tagline { animation-delay: 0.2s; }
+@keyframes fadeIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <header class="head">
+    <div class="brand">SELECT GAME</div>
+    <h1 class="title">NOMI</h1>
+    <div class="tagline">DRINKING GAMES PORTAL</div>
+  </header>
+
+  <main class="list">
+    <a class="card chinchiro" href="https://chinchiro.tom3281.workers.dev/">
+      <div class="chip">丁</div>
+      <div class="body">
+        <div class="name">CHINCHIRO</div>
+        <div class="name-jp">ちんちろ</div>
+        <div class="desc">サイコロ3個で役を作る古典飲みゲー</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a class="card flip" href="https://flip.tom3281.workers.dev/">
+      <div class="chip">♠</div>
+      <div class="body">
+        <div class="name">FLIP</div>
+        <div class="name-jp">テキサスホールデム</div>
+        <div class="desc">ポーカー形式で役の弱い人が飲む</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+
+    <a class="card roulette" href="https://roulette.tom3281.workers.dev/">
+      <div class="chip">×</div>
+      <div class="body">
+        <div class="name">ROULETTE</div>
+        <div class="name-jp">ロシアンルーレット</div>
+        <div class="desc">タイルをめくって爆弾を引いた人が飲む</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+  </main>
+
+  <footer class="foot">
+    <div>3 GAMES · TAP TO LAUNCH</div>
+  </footer>
+</div>
+
+</body>
+</html>
