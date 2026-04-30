@@ -79,6 +79,104 @@ body::after {
   min-height: 100dvh;
 }
 
+/* ─── QR button (top-right) ─── */
+.qr-btn {
+  position: absolute;
+  top: 32px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--steel-0);
+  color: var(--steel-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 5;
+  padding: 0;
+}
+.qr-btn:active { transform: scale(0.92); }
+.qr-btn:hover { color: var(--bone); border-color: var(--steel-1); }
+.qr-btn svg { display: block; }
+
+/* ─── QR overlay ─── */
+.qr-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  padding: 32px 24px;
+}
+.qr-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.qr-card {
+  background: var(--bone);
+  padding: 22px 22px 18px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 320px;
+  width: 100%;
+  transform: scale(0.9);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 60px rgba(224,20,42,0.25), 0 8px 32px rgba(0,0,0,0.6);
+}
+.qr-overlay.show .qr-card { transform: scale(1); }
+.qr-label {
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  color: var(--bg-0);
+  font-weight: 800;
+}
+.qr-code {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bone);
+}
+.qr-code img, .qr-code svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  image-rendering: pixelated;
+}
+.qr-url {
+  font-size: 11px;
+  color: var(--bg-1);
+  word-break: break-all;
+  text-align: center;
+  letter-spacing: 0;
+  font-family: "SF Mono", "Menlo", "Consolas", monospace;
+  line-height: 1.3;
+}
+.qr-hint {
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: var(--dim);
+  margin-top: 8px;
+  animation: blink 1.6s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
 /* ─── Header ─── */
 .head {
   text-align: center;
@@ -296,6 +394,12 @@ body::after {
 <body>
 
 <div id="app">
+  <button class="qr-btn" id="qrBtn" aria-label="このページのQRコード">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+      <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm8-2h3v3h-3v-3zm5 0h3v2h-2v3h-3v-2h2v-3zm-5 5h3v5h-3v-2h-2v-3h2v0zm5 0h3v2h-3v-2zm0 3h3v2h-3v-2z"/>
+    </svg>
+  </button>
+
   <header class="head">
     <div class="brand">SELECT GAME</div>
     <h1 class="title">NOMI</h1>
@@ -348,6 +452,44 @@ body::after {
     <div>4 GAMES · TAP TO LAUNCH</div>
   </footer>
 </div>
+
+<div class="qr-overlay" id="qrOverlay">
+  <div class="qr-card">
+    <div class="qr-label">SCAN ME</div>
+    <div class="qr-code" id="qrCode"></div>
+    <div class="qr-url" id="qrUrl"></div>
+  </div>
+  <div class="qr-hint">TAP TO CLOSE</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script>
+(() => {
+  'use strict';
+  const qrBtn     = document.getElementById('qrBtn');
+  const qrOverlay = document.getElementById('qrOverlay');
+  const qrCode    = document.getElementById('qrCode');
+  const qrUrl     = document.getElementById('qrUrl');
+  let generated = false;
+
+  const generate = () => {
+    if (generated || typeof qrcode !== 'function') return;
+    const url = window.location.href.split('#')[0];
+    const qr = qrcode(0, 'M');
+    qr.addData(url);
+    qr.make();
+    qrCode.innerHTML = qr.createImgTag(8, 0);
+    qrUrl.textContent = url;
+    generated = true;
+  };
+
+  const open  = () => { generate(); qrOverlay.classList.add('show'); };
+  const close = () => qrOverlay.classList.remove('show');
+
+  qrBtn.addEventListener('click', open);
+  qrOverlay.addEventListener('click', close);
+})();
+</script>
 
 </body>
 </html>
