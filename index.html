@@ -350,6 +350,10 @@ body::after {
   --accent: #2c7fb8;
   --accent-rgb: 44, 127, 184;
 }
+.card.anti {
+  --accent: #1ba89c;
+  --accent-rgb: 27, 168, 156;
+}
 
 /* ─── Footer ─── */
 .foot {
@@ -382,6 +386,7 @@ body::after {
 .card:nth-child(3) { animation-delay: 0.25s; }
 .card:nth-child(4) { animation-delay: 0.35s; }
 .card:nth-child(5) { animation-delay: 0.45s; }
+.card:nth-child(6) { animation-delay: 0.55s; }
 @keyframes mount {
   to { opacity: 1; transform: translateY(0); }
 }
@@ -461,10 +466,20 @@ body::after {
       </div>
       <div class="arrow">→</div>
     </a>
+
+    <a class="card anti" href="https://anti-gomoku.tom3281.workers.dev/">
+      <div class="chip">反</div>
+      <div class="body">
+        <div class="name">ANTI</div>
+        <div class="name-jp">反三目（5×5）</div>
+        <div class="desc">3 連並べたら負けの逆五目</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
   </main>
 
   <footer class="foot">
-    <div>5 GAMES · TAP TO LAUNCH</div>
+    <div>6 GAMES · TAP TO LAUNCH</div>
   </footer>
 </div>
 
