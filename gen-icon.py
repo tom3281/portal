@@ -245,14 +245,32 @@ def main():
 
     # Browser-tab favicons — single "N" reads at small sizes
     small_sizes = [
+        ("favicon-48.png", 48),
         ("favicon-32.png", 32),
         ("favicon-16.png", 16),
     ]
+    small_imgs = []
     for name, sz in small_sizes:
         img = draw_small_icon(sz)
         out = os.path.join(OUT_DIR, name)
         save_opaque(img, out)
+        small_imgs.append((sz, img.convert("RGBA")))
         print(f"  wrote {name}  ({sz}x{sz}, {os.path.getsize(out)} bytes)")
+
+    # Multi-resolution favicon.ico — iOS Safari's Start Page "Favorites"
+    # iconography fetcher tries /favicon.ico first; a 404 here makes it
+    # mark the site as iconless and fall back to a letter avatar.
+    ico_path = os.path.join(OUT_DIR, "favicon.ico")
+    sorted_imgs = sorted(small_imgs, key=lambda x: -x[0])  # largest first
+    primary = sorted_imgs[0][1]
+    extras = [img for (_, img) in sorted_imgs[1:]]
+    primary.save(
+        ico_path, format="ICO",
+        sizes=[(s, s) for (s, _) in sorted_imgs],
+        append_images=extras,
+    )
+    print(f"  wrote favicon.ico ({', '.join(f'{s}x{s}' for s, _ in sorted_imgs)}, "
+          f"{os.path.getsize(ico_path)} bytes)")
 
 
 if __name__ == "__main__":

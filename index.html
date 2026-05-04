@@ -24,7 +24,19 @@
 <link rel="icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png?v=3">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=3">
-<link rel="shortcut icon" href="/apple-touch-icon.png?v=3">
+<link rel="shortcut icon" href="/favicon.ico?v=3">
+<!-- Bare /favicon.ico is what iOS Safari's icon fetcher probes first. Without
+     it (404) Safari marks the site iconless and shows a letter avatar in the
+     Favorites grid. -->
+
+<!-- Open Graph image: some Safari versions fall back to og:image when the
+     icon fetcher comes up empty. -->
+<meta property="og:title" content="NOMI — 飲みゲームポータル">
+<meta property="og:image" content="https://portal.tom3281.workers.dev/icon-512.png?v=3">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://portal.tom3281.workers.dev/">
 
 <link rel="manifest" href="/manifest.json">
 <style>
