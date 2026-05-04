@@ -214,17 +214,33 @@ def draw_small_icon(size):
     return bg
 
 
+def save_opaque(img, path):
+    """Save as opaque RGB. Apple recommends touch-icons have no transparency
+    — Safari has been seen to skip RGBA icons in the Favorites grid."""
+    if img.mode != "RGB":
+        img = img.convert("RGB")
+    img.save(path, format="PNG", optimize=True)
+
+
 def main():
-    # iOS home screen + PWA — full wordmark
+    # iOS home screen + PWA — full wordmark.
+    # 152/167/180 cover historical iOS targets (iPhone, iPad, iPad Pro).
+    # Older iOS Safari falls back through these by size, so providing a few
+    # sizes (and the precomposed variant) maximizes the chance Safari picks
+    # one up across versions.
     big_sizes = [
-        ("apple-touch-icon.png", 180),  # iOS home screen (the headline target)
-        ("icon-512.png", 512),           # PWA / large
-        ("icon-192.png", 192),           # PWA / Android standard
+        ("apple-touch-icon.png", 180),              # iOS modern + default
+        ("apple-touch-icon-precomposed.png", 180),  # Pre-iOS-7 fallback name
+        ("apple-touch-icon-152.png", 152),          # iPad
+        ("apple-touch-icon-167.png", 167),          # iPad Pro
+        ("apple-touch-icon-120.png", 120),          # iPhone @3x for older iOS
+        ("icon-512.png", 512),                       # PWA / large
+        ("icon-192.png", 192),                       # PWA / Android standard
     ]
     for name, sz in big_sizes:
         img = draw_icon(sz)
         out = os.path.join(OUT_DIR, name)
-        img.save(out, format="PNG", optimize=True)
+        save_opaque(img, out)
         print(f"  wrote {name}  ({sz}x{sz}, {os.path.getsize(out)} bytes)")
 
     # Browser-tab favicons — single "N" reads at small sizes
@@ -235,7 +251,7 @@ def main():
     for name, sz in small_sizes:
         img = draw_small_icon(sz)
         out = os.path.join(OUT_DIR, name)
-        img.save(out, format="PNG", optimize=True)
+        save_opaque(img, out)
         print(f"  wrote {name}  ({sz}x{sz}, {os.path.getsize(out)} bytes)")
 
 
