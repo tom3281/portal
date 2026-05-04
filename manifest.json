@@ -1,0 +1,14 @@
+{
+  "name": "NOMI — Drinking Games Portal",
+  "short_name": "NOMI",
+  "description": "Drinking-game hub: chinchiro, flip, roulette, indian poker, atlantic, anti-gomoku, risky dice.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08080a",
+  "theme_color": "#0a0a0c",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
