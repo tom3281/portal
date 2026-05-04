@@ -1,0 +1,16 @@
+# Long-cache headers for icon assets.
+# Apple's Safari iconography service treats Cache-Control: max-age=0 as
+# "unstable asset" and may skip caching, then cache "no icon" on the next
+# fetch failure. Long max-age + immutable signals these are stable.
+
+/apple-touch-icon*.png
+  Cache-Control: public, max-age=86400, immutable
+
+/icon-*.png
+  Cache-Control: public, max-age=86400, immutable
+
+/favicon*.png
+  Cache-Control: public, max-age=86400, immutable
+
+/favicon.ico
+  Cache-Control: public, max-age=86400, immutable
