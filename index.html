@@ -377,6 +377,10 @@ body::after {
   --accent: #e8285e;
   --accent-rgb: 232, 40, 94;
 }
+.card.hilow {
+  --accent: #00d4ff;
+  --accent-rgb: 0, 212, 255;
+}
 
 /* ─── Footer ─── */
 .foot {
@@ -411,6 +415,7 @@ body::after {
 .card:nth-child(5) { animation-delay: 0.45s; }
 .card:nth-child(6) { animation-delay: 0.55s; }
 .card:nth-child(7) { animation-delay: 0.65s; }
+.card:nth-child(8) { animation-delay: 0.75s; }
 @keyframes mount {
   to { opacity: 1; transform: translateY(0); }
 }
@@ -510,10 +515,20 @@ body::after {
       </div>
       <div class="arrow">→</div>
     </a>
+
+    <a class="card hilow" href="https://hi-low.tom3281.workers.dev/">
+      <div class="chip">賭</div>
+      <div class="body">
+        <div class="name">HI-LOW</div>
+        <div class="name-jp">ハイロー</div>
+        <div class="desc">次のカードが上か下か。連続成功でステーク上昇</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
   </main>
 
   <footer class="foot">
-    <div>7 GAMES · TAP TO LAUNCH</div>
+    <div>8 GAMES · TAP TO LAUNCH</div>
   </footer>
 </div>
 
