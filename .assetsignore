@@ -1,0 +1,27 @@
+# Files Cloudflare Workers Assets must NOT serve.
+# `assets.directory: "."` would otherwise upload everything in the repo,
+# including the .git/ tree (full history + author email + credentials in
+# config) and editor / CI artifacts.
+
+.git
+.git/**
+.gitignore
+.github
+.github/**
+.wrangler
+.wrangler/**
+.vscode
+.vscode/**
+.idea
+.idea/**
+.DS_Store
+Thumbs.db
+
+# Source / config files we don't need to serve to browsers
+gen-icon.py
+wrangler.jsonc
+package.json
+package-lock.json
+node_modules
+node_modules/**
+README.md
