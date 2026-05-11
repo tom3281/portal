@@ -431,6 +431,10 @@ body::after {
   --accent: #fbe23a;
   --accent-rgb: 251, 226, 58;
 }
+.card.pocket {
+  --accent: #d4a843;
+  --accent-rgb: 212, 168, 67;
+}
 
 /* ─── Footer ─── */
 .foot {
@@ -468,6 +472,8 @@ body::after {
 .card:nth-child(8) { animation-delay: 0.75s; }
 .card:nth-child(9) { animation-delay: 0.85s; }
 .card:nth-child(10) { animation-delay: 0.95s; }
+.card:nth-child(11) { animation-delay: 1.05s; }
+.card:nth-child(12) { animation-delay: 1.15s; }
 @keyframes mount {
   to { opacity: 1; transform: translateY(0); }
 }
@@ -618,10 +624,21 @@ body::after {
       </div>
       <div class="arrow">→</div>
     </a>
+
+    <a class="card pocket" href="https://pocket-mahjong.tom3281.workers.dev/">
+      <div class="device-badge multi"><span class="dot"></span><span class="dot"></span>複数台</div>
+      <div class="chip">麻</div>
+      <div class="body">
+        <div class="name">POCKET</div>
+        <div class="name-jp">ポケット麻雀</div>
+        <div class="desc">9種×4枚=36枚の超ミニ麻雀。1局5分×3セット</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
   </main>
 
   <footer class="foot">
-    <div>11 GAMES · TAP TO LAUNCH</div>
+    <div>12 GAMES · TAP TO LAUNCH</div>
   </footer>
 </div>
 
