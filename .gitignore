@@ -4,3 +4,6 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# promo workspace — local-only TikTok video pipeline
+promo/
