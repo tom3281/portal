@@ -25,3 +25,7 @@ package-lock.json
 node_modules
 node_modules/**
 README.md
+
+# Local-only TikTok promo workspace (Playwright capture pipeline)
+promo
+promo/**
