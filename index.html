@@ -460,8 +460,17 @@ body::after {
   --accent-rgb: 250, 204, 21;
 }
 .card.most {
-  --accent: #e2e8f0;
-  --accent-rgb: 226, 232, 240;
+  --accent: #94a3b8;
+  --accent-rgb: 148, 163, 184;
+}
+
+/* Bright accents (yellow/lime/silver) need dark chip text — the default
+   bone-on-accent is unreadable on light backgrounds. */
+.card.fermi .chip,
+.card.third .chip,
+.card.most .chip {
+  color: #1a202c;
+  text-shadow: none;
 }
 
 /* ─── Footer ─── */
