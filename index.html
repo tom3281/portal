@@ -455,6 +455,10 @@ body::after {
   --accent: #a3e635;
   --accent-rgb: 163, 230, 53;
 }
+.card.fermi {
+  --accent: #facc15;
+  --accent-rgb: 250, 204, 21;
+}
 
 /* ─── Footer ─── */
 .foot {
@@ -499,6 +503,7 @@ body::after {
 .card:nth-child(15) { animation-delay: 1.45s; }
 .card:nth-child(16) { animation-delay: 1.55s; }
 .card:nth-child(17) { animation-delay: 1.65s; }
+.card:nth-child(18) { animation-delay: 1.75s; }
 @keyframes mount {
   to { opacity: 1; transform: translateY(0); }
 }
@@ -715,10 +720,21 @@ body::after {
       </div>
       <div class="arrow">→</div>
     </a>
+
+    <a class="card fermi" href="https://fermi.tom3281.workers.dev/">
+      <div class="device-badge multi"><span class="dot"></span><span class="dot"></span>複数台</div>
+      <div class="chip">≒</div>
+      <div class="body">
+        <div class="name">FERMI</div>
+        <div class="name-jp">フェルミ</div>
+        <div class="desc">月まで何km？全300問のざっくり数字クイズ、一番桁がズレた人が1杯</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
   </main>
 
   <footer class="foot">
-    <div>17 GAMES · TAP TO LAUNCH</div>
+    <div>18 GAMES · TAP TO LAUNCH</div>
   </footer>
 </div>
 
