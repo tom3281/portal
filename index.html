@@ -447,6 +447,10 @@ body::after {
   --accent: #4ade80;
   --accent-rgb: 74, 222, 128;
 }
+.card.split {
+  --accent: #6366f1;
+  --accent-rgb: 99, 102, 241;
+}
 
 /* ─── Footer ─── */
 .foot {
@@ -486,6 +490,10 @@ body::after {
 .card:nth-child(10) { animation-delay: 0.95s; }
 .card:nth-child(11) { animation-delay: 1.05s; }
 .card:nth-child(12) { animation-delay: 1.15s; }
+.card:nth-child(13) { animation-delay: 1.25s; }
+.card:nth-child(14) { animation-delay: 1.35s; }
+.card:nth-child(15) { animation-delay: 1.45s; }
+.card:nth-child(16) { animation-delay: 1.55s; }
 @keyframes mount {
   to { opacity: 1; transform: translateY(0); }
 }
@@ -680,10 +688,21 @@ body::after {
       </div>
       <div class="arrow">→</div>
     </a>
+
+    <a class="card split" href="https://split.tom3281.workers.dev/">
+      <div class="device-badge multi"><span class="dot"></span><span class="dot"></span>複数台</div>
+      <div class="chip">票</div>
+      <div class="body">
+        <div class="name">SPLIT</div>
+        <div class="name-jp">スプリット</div>
+        <div class="desc">二択にこっそり投票、少数派になったら1杯。3〜10人の多数決ゲーム</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
   </main>
 
   <footer class="foot">
-    <div>13 GAMES · TAP TO LAUNCH</div>
+    <div>16 GAMES · TAP TO LAUNCH</div>
   </footer>
 </div>
 
